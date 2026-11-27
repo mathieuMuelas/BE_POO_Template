@@ -1,10 +1,12 @@
 /*********************************************************************
  * @file  Apllication.h
- * @author <mettre l'adresse mail ou nom prenom>
+ * @author <Jules Pagerie Muelas Mathieu>
  * @brief Fichier header de l'application
  *********************************************************************/
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
+
+#include "Clignotant.h"
 
 /**
   * @class Application
@@ -12,6 +14,8 @@
 */    
 class Application
 {
+  private:
+    Clignotant clignotant;
   public :
     /**
      * @fn Application();
@@ -35,3 +39,9 @@ class Application
     void run(void);
 };
 #endif
+
+
+
+
+
+

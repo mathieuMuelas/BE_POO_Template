@@ -1,47 +1,51 @@
+
 #include "TableauDeBord.h"
-#include <iostream>
+#include <Arduino.h>
 
-using namespace std;
+TableauDeBord::TableauDeBord() : Voiture()
+{
+}
 
-TableauDeBord::TableauDeBord() : Voiture(){}
-
-TableauDeBord::~TableauDeBord(){}
+TableauDeBord::~TableauDeBord()
+{
+}
 
 void TableauDeBord::afficherTableauDeBord()
 {
-    cout << "\n===== TABLEAU DE BORD =====" << endl;
-    cout << "1. Eclairage" << endl;
-    cout << "2. Signalisation" << endl;
-    cout << "3. Visibilite" << endl;
-    cout << "4. Confort" << endl;
+    Serial.println("\n===== TABLEAU DE BORD =====");
+    Serial.println("1. Eclairage");
+    Serial.println("2. Signalisation");
+    Serial.println("3. Visibilite");
+    Serial.println("4. Confort");
 }
 
 void TableauDeBord::executerCommande()
 {
-    int choix;
-    afficherTableauDeBord();
-    cout << "Votre choix : ";
-    cin >> choix;
-    switch (choix)
+    if (Serial.available() > 0)
     {
-        case 1:
-            cout << "Eclairage" << endl;
-            break;
+        int choix = Serial.parseInt();
 
-        case 2:
-            cout << "Signalisation" << endl;
-            break;
+        switch (choix)
+        {
+            case 1:
+                Serial.println("Eclairage");
+                break;
 
-        case 3:
-            cout << "Visibilite" << endl;
-            break;
+            case 2:
+                Serial.println("Signalisation");
+                break;
 
-        case 4:
-            cout << "Confort" << endl;
-            break;
+            case 3:
+                Serial.println("Visibilite");
+                break;
 
-        default:
-            cout << "Choix invalide" << endl;
-            break;
+            case 4:
+                Serial.println("Confort");
+                break;
+
+            default:
+                Serial.println("Choix invalide");
+                break;
+        }
     }
 }

@@ -2,14 +2,12 @@
 
 Application myApplication;
 
-void setup() 
+void setup()
 {
-  // put your setup code here, to run once:
-  myApplication.init();
+    myApplication.init();
 }
 
-void loop() 
+void loop()
 {
-  // put your main code here, to run repeatedly:
-  myApplication.run();
+    myApplication.run();
 }

@@ -14,30 +14,30 @@ Clignotant::~Clignotant()
 
 void Clignotant::init()
 {
-    // Configuration des entrees boutons
+    // Configuration du bouton
     pinMode(BP_GAUCHE, INPUT_PULLUP);
-    pinMode(BP_DROIT, INPUT_PULLUP);
 
-    // Configuration de la sortie LED
+    // Configuration du voyant
     pinMode(LED_CLIGNOTANT, OUTPUT);
 
-    digitalWrite(LED_CLIGNOTANT, LOW);
+    // Voyant éteint au démarrage
+    digitalWrite(LED_CLIGNOTANT, HIGH);
+
+    desactiver();
 }
 
 void Clignotant::lireBoutons()
 {
-    // INPUT_PULLUP : LOW signifie bouton appuye
-    bool gauche = (digitalRead(BP_GAUCHE) == LOW);
-    bool droite = (digitalRead(BP_DROIT) == LOW);
+    bool gauche = (digitalRead(BP_GAUCHE) == HIGH);
 
-    // Au moins un bouton appuye
-    if (gauche || droite)
+    if (gauche)
     {
         if (!actif)
         {
             activer();
             tempsPrecedent = millis();
-            etatLED = false;
+            etatLED = true;
+            digitalWrite(LED_CLIGNOTANT, LOW);
         }
     }
     else
@@ -55,14 +55,14 @@ void Clignotant::actualiser()
 
     unsigned long tempsActuel = millis();
 
-    // Changement d'etat toutes les 500 ms
     if (tempsActuel - tempsPrecedent >= intervalle)
     {
         tempsPrecedent = tempsActuel;
-
         etatLED = !etatLED;
 
-        digitalWrite(LED_CLIGNOTANT, etatLED ? HIGH : LOW);
+        digitalWrite(LED_CLIGNOTANT, etatLED ? LOW : HIGH);
+
+        Serial.println(etatLED ? "LED ALLUMEE" : "LED ETEINTE");
     }
 }
 
@@ -72,5 +72,6 @@ void Clignotant::desactiver()
 
     etatLED = false;
 
+    // HIGH = voyant éteint
     digitalWrite(LED_CLIGNOTANT, LOW);
 }

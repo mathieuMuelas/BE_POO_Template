@@ -1,38 +1,52 @@
+
 #include "Voiture.h"
-#include <iostream>
+#include <Arduino.h>
 
-Voiture::Voiture() : allume(false), authentification(false) {
-    std::cout << "Voiture créée (verrouillée, éteinte)" << std::endl;
+Voiture::Voiture() : allume(false), authentification(false)
+{
 }
 
-Voiture::~Voiture() {
-    std::cout << "Voiture détruite" << std::endl;
+Voiture::~Voiture()
+{
 }
 
-bool Voiture::acces(bool badgeValide) {
+bool Voiture::acces(bool badgeValide)
+{
     if (badgeValide) {
         authentification = true;
-        std::cout << "Accès autorisé" << std::endl;
+        Serial.println("Acces autorise");
     } else {
-        std::cout << "Accès refusé" << std::endl;
+        Serial.println("Acces refuse");
     }
+
     return authentification;
 }
 
-void Voiture::verrouillage() {
-    allume = false;            // on coupe le moteur avant de verrouiller
+void Voiture::verrouillage()
+{
+    allume = false;
     authentification = false;
-    std::cout << "Voiture verrouillée" << std::endl;
+    Serial.println("Voiture verrouillee");
 }
 
-bool Voiture::demarrer() {
+bool Voiture::demarrer()
+{
     if (authentification) {
         allume = true;
+        Serial.println("Voiture demarree");
         return true;
     }
-    std::cout << "Démarrage impossible : non authentifié" << std::endl;
+
+    Serial.println("Demarrage impossible : non authentifie");
     return false;
 }
 
-bool Voiture::estAllume() const { return allume; }
-bool Voiture::estAuthentifie() const { return authentification; }
+bool Voiture::estAllume() const
+{
+    return allume;
+}
+
+bool Voiture::estAuthentifie() const
+{
+    return authentification;
+}
